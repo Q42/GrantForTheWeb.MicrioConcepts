@@ -47,7 +47,6 @@ const startMonetization = () => {
 };
 
 if (document.monetization) {
-  console.log(document.monetization);
   webMonetization();
 } else {
   document.getElementById('wm-status').innerText = 'n/a';
