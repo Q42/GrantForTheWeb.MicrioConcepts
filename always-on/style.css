@@ -15,7 +15,7 @@ html {
   border-radius: 5px;
   padding: 10px;
   color: white;
-  transition: background-color 1s;
+  transition: background-color 0.5s ease-out;
   text-align: right;
 }
 
@@ -32,6 +32,9 @@ body.wm-active #monetization-status {
   position: absolute;
   bottom: 50px;
   width: 100%;
+  animation: fadeInBottom 0.75s cubic-bezier(0.9, 0.01, 0.59, 1.22) 0.5s
+    forwards;
+  opacity: 0;
 }
 
 .section .container {
@@ -43,4 +46,15 @@ body.wm-active #monetization-status {
 
 .section .container h1 {
   margin-bottom: 2rem;
+}
+
+@keyframes fadeInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
