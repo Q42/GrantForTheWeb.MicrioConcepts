@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Monetization for Micrio - Always on</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="./content-interaction/style.css" />
+    <script src="https://b.micr.io/micrio-3.0.min.js"></script>
+    <script src="./content-interaction/script.js" defer></script>
+  </head>
+  <body>
+    <div id="micrio-container"></div>
+
+    <section class="section">
+      <div class="container">
+        <div id="monetization-status" class="active">
+          Web Monetization:
+          <span id="wm-status">inactive</span>
+        </div>
+        <h1 class="title">Web Monetization: Content Interaction</h1>
+        <h2 class="subtitle">
+          Although this scenario is not strictly speaking based on interaction,
+          it can be seen as a viable option for the Micrio business model. This
+          mode acts as an “always on” mode. This would mean that the payment
+          stream will start on page load, and will be kept active during the
+          entire duration of the user’s session.
+        </h2>
+      </div>
+    </section>
+  </body>
+</html>
