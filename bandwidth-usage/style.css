@@ -1,0 +1,60 @@
+html {
+  overflow: hidden;
+}
+
+#micrio-container {
+  height: 100vh;
+  width: 100vw;
+}
+
+#monetization-status {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: red;
+  border-radius: 5px;
+  padding: 10px;
+  color: white;
+  transition: background-color 0.5s ease-out;
+  text-align: right;
+}
+
+#monetization-status span {
+  width: 60px;
+  display: inline-block;
+}
+
+body.wm-active #monetization-status {
+  background-color: green;
+}
+
+.section {
+  position: absolute;
+  bottom: 50px;
+  width: 100%;
+  animation: fadeInBottom 0.75s cubic-bezier(0.9, 0.01, 0.59, 1.22) 0.5s
+    forwards;
+  opacity: 0;
+}
+
+.section .container {
+  padding: 25px;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.section .container h1 {
+  margin-bottom: 2rem;
+}
+
+@keyframes fadeInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

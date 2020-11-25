@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Monetization for Micrio - Bandwidth usage</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://b.micr.io/micrio-3.0.min.js"></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div id="micrio-container"></div>
+
+    <section class="section">
+      <div class="container">
+        <div id="monetization-status" class="active">
+          Web Monetization:
+          <span id="wm-status">inactive</span>
+        </div>
+        <h1 class="title">
+          Web Monetization: Bandwidth usage <span id="data-usage">0</span>
+        </h1>
+        <h2 class="subtitle">
+          With general interaction, actions like zooming, panning and clicking
+          are meant. These interactions can explicitly be defined as camera
+          movements. During camera movement, new tiles are downloaded and
+          bandwidth will be used. In this mode it doesn’t matter what kind of
+          content the user is interacting with. It should not matter if the user
+          is freely exploring in the webapp or focusing on content that is
+          created by a creator like markers, marker-tours and video-tours. On
+          these moments the monetization meta-tag should be dynamically added to
+          the web-page. For moments that the user does not interact with the
+          Micrio instance (or “static moments”), the meta-tag should be removed
+          from the web-page. This will close the payment stream.
+        </h2>
+      </div>
+    </section>
+  </body>
+</html>
