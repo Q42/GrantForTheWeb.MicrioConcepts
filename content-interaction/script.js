@@ -24,15 +24,18 @@ const webMonetization = () => {
     document.body.classList.remove('wm-active');
   });
 
-  micrio.addEventListener('marker-open', () => startMonetization());
-  micrio.addEventListener('marker-closed', () => stopMonetization());
+  micrio.addEventListener('marker-open', startMonetization);
+  micrio.addEventListener('marker-closed', stopMonetization);
 
-  micrio.addEventListener('tours-start', () => startMonetization());
-  micrio.addEventListener('tours-stop', () => {
-    // If a marker was opened before playing a video, WM should not be stopped
-    if (micrio.container.classList.contains('marker-opened')) return;
-    stopMonetization();
-  });
+  micrio.addEventListener('tours-play', startMonetization);
+  micrio.addEventListener('tours-pause', stopVideo);
+  micrio.addEventListener('tours-stop', stopVideo);
+};
+
+const stopVideo = () => {
+  // If a marker was opened before playing a video, WM should not be stopped
+  if (micrio.container.classList.contains('marker-opened')) return;
+  stopMonetization();
 };
 
 const stopMonetization = () => {
