@@ -9,7 +9,7 @@ let ioTimeout = 0;
 /**
  * Register a Service Worker to handle fetch requests in the application.
  */
-navigator.serviceWorker.register('/bandwidth-usage/sw.js');
+navigator.serviceWorker.register(`${window.location}sw.js`);
 
 /**
  * Listen for the message sent from the ServiceWorkerGlobal scope that
@@ -57,19 +57,23 @@ const webMonetization = () => {
   });
 };
 
-const startMonetization = () => {
-  if (!document.querySelector('meta[name=monetization]')) {
-    document.head.appendChild(META_TAG);
-  }
+// const startMonetization = () => {
+//   /**
+//    * If a new tag is added, the monetization is temporarily stopped before reactivating
+//    * so we check if the monetization tag is already present.
+//    */
+//   if (!document.querySelector('meta[name=monetization]')) {
+//     document.head.appendChild(META_TAG);
+//   }
 
-  clearTimeout(ioTimeout);
-  ioTimeout = setTimeout(() => stopMonetization(), 2000);
-};
+//   clearTimeout(ioTimeout);
+//   ioTimeout = setTimeout(() => stopMonetization(), 2000);
+// };
 
-const stopMonetization = () => {
-  const meta = document.querySelector('meta[name=monetization]');
-  if (meta) meta.remove();
-};
+// const stopMonetization = () => {
+//   const meta = document.querySelector('meta[name=monetization]');
+//   if (meta) meta.remove();
+// };
 
-if (document.monetization) webMonetization();
-else document.getElementById('wm-status').innerText = 'n/a';
+// if (document.monetization) webMonetization();
+// else document.getElementById('wm-status').innerText = 'n/a';

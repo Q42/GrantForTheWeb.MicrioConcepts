@@ -41,7 +41,10 @@ const stopMonetization = () => {
 };
 
 const startMonetization = () => {
-  // If a new monetization tag is added, the payment stream is restarted.
+  /**
+   * If a new tag is added, the monetization is temporarily stopped before reactivating
+   * so we check if the monetization tag is already present.
+   */
   if (document.querySelector('meta[name=monetization]')) return;
   document.head.appendChild(META_TAG);
 };

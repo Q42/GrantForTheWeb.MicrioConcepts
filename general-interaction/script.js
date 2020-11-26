@@ -15,6 +15,9 @@ let micrio = new Micrio({
   initType: 'cover',
 });
 
+/**
+ * Set up Micro and attach Web Monetization listeners.
+ */
 const webMonetization = () => {
   document.monetization.addEventListener('monetizationstart', () => {
     document.getElementById('wm-status').innerText = 'active';
@@ -30,10 +33,18 @@ const webMonetization = () => {
 };
 
 const startMonetization = () => {
+  /**
+   * If a new tag is added, the monetization is temporarily stopped before reactivating
+   * so we check if the monetization tag is already present.
+   */
   if (!document.querySelector('meta[name=monetization]')) {
     document.head.appendChild(META_TAG);
   }
 
+  /**
+   * Whenever this function is called, reset the timeout so the
+   * monetization stays active.
+   */
   clearTimeout(ioTimeout);
   ioTimeout = setTimeout(() => stopMonetization(), 2000);
 };

@@ -19,8 +19,5 @@ const webMonetization = () => {
   });
 };
 
-if (document.monetization) {
-  webMonetization();
-} else {
-  document.getElementById('wm-status').innerText = 'n/a';
-}
+if (document.monetization) webMonetization();
+else document.getElementById('wm-status').innerText = 'n/a';

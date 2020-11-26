@@ -4,8 +4,6 @@
  */
 self.addEventListener('fetch', (event) =>
   fetch(event.request).then((response) => {
-    console.log(event.request.url);
-
     if (
       !event.request.url.startsWith('https://b.micr.io') ||
       event.request.url === 'https://b.micr.io/micrio-3.0.min.js'
