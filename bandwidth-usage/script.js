@@ -66,12 +66,12 @@ const webMonetization = () => {
    * real world usecase.
    */
   document.monetization.addEventListener('monetizationprogress', () => {
-    if (window.dataUsage < 1) {
+    if (window.dataUsage === 0) {
       stopMonetization();
       return;
     }
 
-    window.dataUsage -= TICK_PRICE;
+    window.dataUsage = Math.max(0, window.dataUsage - TICK_PRICE);
 
     const usageEl = document.getElementById('data-usage');
     usageEl.innerText = `${
