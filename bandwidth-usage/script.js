@@ -3,6 +3,8 @@ const META_TAG = document.createElement('meta');
 META_TAG.setAttribute('name', 'monetization');
 META_TAG.setAttribute('content', WALLET_ADDRESS);
 
+const TICK_PRICE = 100000;
+
 window.dataUsage = 0;
 let ioTimeout = 0;
 
@@ -24,11 +26,13 @@ navigator.serviceWorker.addEventListener('message', (event) => {
     Math.round((window.dataUsage / 1024 + Number.EPSILON) * 100) / 100
   }kB`;
 
+  startMonetization();
+
   /**
    * This is where we hit a snag with the meta-tag based WM-API. It is
    * currently not possible to influence the payment scale from the browser.
    *
-   * This is a good thing, because this would open the user up to
+   * This is actually a good thing, because this would open the user up to
    * bad practices.
    */
 });
@@ -55,25 +59,41 @@ const webMonetization = () => {
     document.getElementById('wm-status').innerText = 'inactive';
     document.body.classList.remove('wm-active');
   });
+
+  /**
+   * For this POC we keep the payment stream active until we "paid" for
+   * all the bandwidth. Currently this is not reactive, but should be in a
+   * real world usecase.
+   */
+  document.monetization.addEventListener('monetizationprogress', () => {
+    if (window.dataUsage < 1) {
+      stopMonetization();
+      return;
+    }
+
+    window.dataUsage -= TICK_PRICE;
+
+    const usageEl = document.getElementById('data-usage');
+    usageEl.innerText = `${
+      Math.round((window.dataUsage / 1024 + Number.EPSILON) * 100) / 100
+    }kB`;
+  });
 };
 
-// const startMonetization = () => {
-//   /**
-//    * If a new tag is added, the monetization is temporarily stopped before reactivating
-//    * so we check if the monetization tag is already present.
-//    */
-//   if (!document.querySelector('meta[name=monetization]')) {
-//     document.head.appendChild(META_TAG);
-//   }
+const startMonetization = () => {
+  /**
+   * If a new tag is added, the monetization is temporarily stopped before reactivating
+   * so we check if the monetization tag is already present.
+   */
+  if (!document.querySelector('meta[name=monetization]')) {
+    document.head.appendChild(META_TAG);
+  }
+};
 
-//   clearTimeout(ioTimeout);
-//   ioTimeout = setTimeout(() => stopMonetization(), 2000);
-// };
+const stopMonetization = () => {
+  const meta = document.querySelector('meta[name=monetization]');
+  if (meta) meta.remove();
+};
 
-// const stopMonetization = () => {
-//   const meta = document.querySelector('meta[name=monetization]');
-//   if (meta) meta.remove();
-// };
-
-// if (document.monetization) webMonetization();
-// else document.getElementById('wm-status').innerText = 'n/a';
+if (document.monetization) webMonetization();
+else document.getElementById('wm-status').innerText = 'n/a';
