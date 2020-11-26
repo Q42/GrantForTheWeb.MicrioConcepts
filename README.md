@@ -4,4 +4,9 @@ This repository contains multiple proof of concepts for Web Monetization in Micr
 
 ## Examples
 
-Each example has its own folder, just run that in your browser.
+Each example has its own folder, just run that in your browser. If the example fails to render some resources, add a trailing slash to the URL.
+
+- [Always on](https://q42.github.io/GrantForTheWeb.MicrioConcepts/always-on/)
+- [Content interaction](https://q42.github.io/GrantForTheWeb.MicrioConcepts/content-interaction/)
+- [General interaction](https://q42.github.io/GrantForTheWeb.MicrioConcepts/general-interaction/)
+- [Bandwidth usage](https://q42.github.io/GrantForTheWeb.MicrioConcepts/bandwidth-usage/)
