@@ -26,13 +26,22 @@ var app = new Vue({
   el: '#app',
   data: {
     message: 'Hello Vue!',
-    maxPricePerVisitor: 0.025, // Euro
-    micrioShare: 20,
-    contentCreatorShare: 80,
+    maxPricePerVisitor: localStorage.getItem('maxPricePerVisitor') || 0.025, // Euro
+    micrioShare: localStorage.getItem('micrioShare') ||  20,
+    contentCreatorShare: localStorage.getItem('contentCreatorShare') || 80,
     expectedVisitorsAmount: 50000,
+    expectedTotalVisitorsAmount: 3000000,
     subscriptions: SUBSCRIPTIONS
   },
+  computed: {
+    maxProfitMicrio() {
+      return this.formatInEuros(this.expectedTotalVisitorsAmount * (this.maxPricePerVisitor * (this.micrioShare/100)))
+    }
+  },
   methods: {
+    formatInEuros(number) {
+      return new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(number)
+    },
     setMicrioShare() {
       this.micrioShare = 100 - this.contentCreatorShare
     },
@@ -43,7 +52,12 @@ var app = new Vue({
       return Math.round((subscription.pricePerMonth * 12) / (this.maxPricePerVisitor * (this.contentCreatorShare/100))).toLocaleString('nl-NL')
     },
     getMaxProfit(subscription) {
-      return Math.max(0, (((this.expectedVisitorsAmount/12) * (this.maxPricePerVisitor * (this.contentCreatorShare/100))) - subscription.pricePerMonth).toFixed(2))
+      return this.formatInEuros(Math.max(0, (((this.expectedVisitorsAmount/12) * (this.maxPricePerVisitor * (this.contentCreatorShare/100))) - subscription.pricePerMonth)))
+    },
+    save() {
+      localStorage.setItem('maxPricePerVisitor', this.maxPricePerVisitor)
+      localStorage.setItem('micrioShare', this.micrioShare)
+      localStorage.setItem('contentCreatorShare', this.contentCreatorShare)
     }
   }
 })

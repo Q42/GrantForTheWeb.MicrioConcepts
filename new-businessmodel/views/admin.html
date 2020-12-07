@@ -12,12 +12,12 @@
   </head>
   <body>
     <div id="app">
-      <h1>{{ message }}</h1>
+      <h1>Micrio &amp; Web Monetization calculator</h1>
 
       <fieldset>
         <legend>Price</legend>
 
-        <label for="maxPrice">Max price per visitor</label>
+        <label for="maxPrice">Max. price per visitor</label>
         € <input type="number" min="0" id="maxPrice" v-model.number="maxPricePerVisitor" step="0.0001" />
       </fieldset>
 
@@ -28,11 +28,16 @@
 
         <label for="contentCreatorShare">Content creator %</label>
         <input type="number" min="0" max="100" id="contentCreatorShare" v-model.number="contentCreatorShare" @change="setMicrioShare" />
+
+        <p>
+          <strong>Revenue</strong><br/>
+          Micrio: € {{ micrioShare/100 * maxPricePerVisitor}}<br/>
+          Content creator: € {{ contentCreatorShare/100 * maxPricePerVisitor}}
+        </p>
       </fieldset>
 
-
       <aside>
-        <h2>Micrio project</h2>
+        <h2>For content creators</h2>
 
         <label for="expectedVisitorsAmount">Expected yearly visitors</label>
         <input type="number" v-model.number="expectedVisitorsAmount" id="expectedVisitorsAmount" />
@@ -50,7 +55,7 @@
               {{ subscription.name }}
             </th>
             <td>
-              € {{ subscription.pricePerMonth }}
+              {{ formatInEuros(subscription.pricePerMonth) }}
             </td>
             <td>
               {{ subscription.maxVisitors.toLocaleString('nl-NL') }}
@@ -59,7 +64,7 @@
               {{ getMinVisitorsForBreakEven(subscription) }}
             </td>
             <td>
-              € {{ getMaxProfit(subscription) }} <span v-if="expectedVisitorsAmount > subscription.maxVisitors">*</span>
+              {{ getMaxProfit(subscription) }} <span v-if="expectedVisitorsAmount > subscription.maxVisitors">*</span>
             </td>
           </tr>
         </table>
@@ -69,6 +74,19 @@
         </p>
 
       </aside>
+
+      <aside>
+        <h2>For Micrio</h2>
+
+        <label for="expectedTotalVisitorsAmount">Expected yearly visitors</label>
+        <input type="number" v-model.number="expectedTotalVisitorsAmount" id="expectedTotalVisitorsAmount" />
+        
+        <p>
+          Max. revenue p/m (of Web Monetization): {{ maxProfitMicrio }}
+        </p>
+      </aside>
+
+      <button @click="save">Save settings</button>
     </div>
 
     <script src="/admin.js"></script>
