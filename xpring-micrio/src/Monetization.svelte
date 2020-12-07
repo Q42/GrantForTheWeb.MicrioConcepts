@@ -9,11 +9,6 @@
   let accountName = '';
   let authToken = '';
 
-  function saveCredentials() {
-    sessionStorage.setItem('accountName', accountName);
-    sessionStorage.setItem('authToken', authToken);
-  }
-
   async function onPay() {
     console.log(accountName, authToken, paymentPointer);
     if (!authToken || !accountName) {
