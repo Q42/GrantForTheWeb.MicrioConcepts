@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>New businessmodel Micrio</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <link rel="stylesheet" href="/admin.css" />
+    
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ message }}</h1>
+
+      <fieldset>
+        <legend>Price</legend>
+
+        <label for="maxPrice">Max price per visitor</label>
+        € <input type="number" min="0" id="maxPrice" v-model.number="maxPricePerVisitor" step="0.0001" />
+      </fieldset>
+
+      <fieldset>
+        <legend>Share</legend>
+        <label for="micrioShare">Micrio %</label>
+        <input type="number" min="0" max="100" id="micrioShare" v-model.number="micrioShare" @change="setContentCreatorShare" />
+
+        <label for="contentCreatorShare">Content creator %</label>
+        <input type="number" min="0" max="100" id="contentCreatorShare" v-model.number="contentCreatorShare" @change="setMicrioShare" />
+      </fieldset>
+
+
+      <aside>
+        <h2>Micrio project</h2>
+
+        <label for="expectedVisitorsAmount">Expected yearly visitors</label>
+        <input type="number" v-model.number="expectedVisitorsAmount" id="expectedVisitorsAmount" />
+
+        <table>
+          <tr>
+            <th></th>
+            <th>Price p/m</th>
+            <th>Max. visitors p/m</th>
+            <th>Min. visitors for break even</th>
+            <th>Max. profit p/m</th>
+          </tr>
+          <tr v-for="subscription in subscriptions" :key="subscription.name">
+            <th>
+              {{ subscription.name }}
+            </th>
+            <td>
+              € {{ subscription.pricePerMonth }}
+            </td>
+            <td>
+              {{ subscription.maxVisitors.toLocaleString('nl-NL') }}
+            </td>
+            <td>
+              {{ getMinVisitorsForBreakEven(subscription) }}
+            </td>
+            <td>
+              € {{ getMaxProfit(subscription) }} <span v-if="expectedVisitorsAmount > subscription.maxVisitors">*</span>
+            </td>
+          </tr>
+        </table>
+
+        <p>
+          * Excluding extra bandwidth costs
+        </p>
+
+      </aside>
+    </div>
+
+    <script src="/admin.js"></script>
+  </body>
+</html>
