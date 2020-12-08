@@ -1,0 +1,12 @@
+.threshold-alert .modal-content {
+  padding: 0 20px;
+}
+
+.threshold-alert .modal-background {
+  background-color: rgba(10, 10, 10, 0.76);
+}
+
+.threshold-alert .threshold-amount {
+  font-size: 2rem;
+  margin-left: 25px;
+}
