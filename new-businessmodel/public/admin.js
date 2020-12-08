@@ -54,10 +54,16 @@ var app = new Vue({
     getMaxProfit(subscription) {
       return this.formatInEuros(Math.max(0, (((this.expectedVisitorsAmount/12) * (this.maxPricePerVisitor * (this.contentCreatorShare/100))) - subscription.pricePerMonth)))
     },
-    save() {
+    save(event) {
+      event.target.classList.add('is-loading')
+
       localStorage.setItem('maxPricePerVisitor', this.maxPricePerVisitor)
       localStorage.setItem('micrioShare', this.micrioShare)
       localStorage.setItem('contentCreatorShare', this.contentCreatorShare)
+
+      setTimeout(() => {
+        event.target.classList.remove('is-loading')
+      }, 300)
     }
   }
 })
