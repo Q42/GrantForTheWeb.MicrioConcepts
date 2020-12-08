@@ -27,6 +27,7 @@ var app = new Vue({
   data: {
     message: 'Hello Vue!',
     maxPricePerVisitor: localStorage.getItem('maxPricePerVisitor') || 0.025, // Euro
+    timeWindow: localStorage.getItem('timeWindow') || 120, // seconds
     micrioShare: localStorage.getItem('micrioShare') ||  20,
     contentCreatorShare: localStorage.getItem('contentCreatorShare') || 80,
     expectedVisitorsAmount: 50000,
@@ -58,6 +59,7 @@ var app = new Vue({
       event.target.classList.add('is-loading')
 
       localStorage.setItem('maxPricePerVisitor', this.maxPricePerVisitor)
+      localStorage.setItem('timeWindow', this.timeWindow)
       localStorage.setItem('micrioShare', this.micrioShare)
       localStorage.setItem('contentCreatorShare', this.contentCreatorShare)
 

@@ -20,78 +20,90 @@
           <h2 class="is-size-2">Settings</h2>
           <div class="columns">
             <div class="column">
-          <fieldset>
-            <legend class="is-size-3">Price</legend>
-            
-            <div class="field">
-              <label for="maxPrice" class="label">Max. price per visitor</label>
-              <div class="field has-addons">
-                <p class="control">
-                  <a class="button is-static">
-                    €
-                  </a>
-                </p>
-                <p class="control">
-                  <input type="number" class="input" min="0" id="maxPrice" v-model.number="maxPricePerVisitor" step="0.0001" />
-                </p>
-              </div>
-            </div>
-          </fieldset>
-
-          <fieldset class="share-block">
-            <legend class="is-size-3">Share</legend>
-
-            <div class="field is-horizontal">
-              <div class="field-label is-normal">
-                <label for="micrioShare" class="label">Micrio</label>
-              </div>
-              <div class="field-body">
-                <div class="field has-addons">
-                  <p class="control">
-                    <input type="number" class="input" min="0" max="100" id="micrioShare" v-model.number="micrioShare" @change="setContentCreatorShare" />
-                  </p>
-                  <p class="control">
-                    <a class="button is-static">
-                      %
-                    </a>
-                  </p>
+              <fieldset>
+                <legend class="is-size-3">Price</legend>
+                
+                <div class="field">
+                  <label for="maxPrice" class="label">Max. price per visitor</label>
+                  <div class="field has-addons">
+                    <p class="control">
+                      <a class="button is-static">
+                        €
+                      </a>
+                    </p>
+                    <p class="control">
+                      <input type="number" class="input" min="0" id="maxPrice" v-model.number="maxPricePerVisitor" step="0.0001" />
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </div>
 
-            <div class="field is-horizontal">
-              <div class="field-label is-normal">
-                <label for="contentCreatorShare" class="label">Content creator</label>
-              </div>
-              <div class="field-body">
-                <div class="field has-addons">
-                  <p class="control">
-                    <input type="number" class="input" min="0" max="100" id="contentCreatorShare" v-model.number="contentCreatorShare" @change="setMicrioShare" />
-                  </p>
-                  <p class="control">
-                    <a class="button is-static">
-                      %
-                    </a>
-                  </p>
+                <div class="field">
+                  <label for="timeWindow" class="label">Time window for getting price</label>
+                  <div class="field has-addons">
+                    <p class="control">
+                      <input type="number" class="input" min="0" id="timeWindow" v-model.number="timeWindow" step="1" />
+                    </p>
+                    <p class="control">
+                      <a class="button is-static">
+                        seconds
+                      </a>
+                    </p>
+                  </div>
                 </div>
+              </fieldset>
+
+              <fieldset class="share-block">
+                <legend class="is-size-3">Share</legend>
+
+                <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                    <label for="micrioShare" class="label">Micrio</label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field has-addons">
+                      <p class="control">
+                        <input type="number" class="input" min="0" max="100" id="micrioShare" v-model.number="micrioShare" @change="setContentCreatorShare" />
+                      </p>
+                      <p class="control">
+                        <a class="button is-static">
+                          %
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                    <label for="contentCreatorShare" class="label">Content creator</label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field has-addons">
+                      <p class="control">
+                        <input type="number" class="input" min="0" max="100" id="contentCreatorShare" v-model.number="contentCreatorShare" @change="setMicrioShare" />
+                      </p>
+                      <p class="control">
+                        <a class="button is-static">
+                          %
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                <button @click="save" class="button is-link">Save settings</button>
+              </fieldset>
+            </div>
+            <div class="column">
+              <div class="notification is-info is-light revenue">
+                <p>
+                  <strong class="static-text">Revenue share of Web Monetization per visitor</strong><br/>
+                  <span class="static-text revenue-label">Micrio:</span> € {{ micrioShare/100 * maxPricePerVisitor }}<br/>
+                  <span class="static-text revenue-label">Content creator:</span> € {{ contentCreatorShare/100 * maxPricePerVisitor}}
+                </p>
               </div>
             </div>
-            
-            <button @click="save" class="button is-link">Save settings</button>
-          </fieldset>
           </div>
-          <div class="column">
-            <div class="notification is-info is-light revenue">
-              <p>
-                <strong class="static-text">Revenue share of Web Monetization per visitor</strong><br/>
-                <span class="static-text revenue-label">Micrio:</span> € {{ micrioShare/100 * maxPricePerVisitor }}<br/>
-                <span class="static-text revenue-label">Content creator:</span> € {{ contentCreatorShare/100 * maxPricePerVisitor}}
-              </p>
-            </div>
-          
-        </div>
-      </div>
-          
         </div>
 
         <aside>
