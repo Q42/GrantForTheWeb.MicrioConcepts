@@ -45,8 +45,9 @@ var app = new Vue({
     },
   },
   mounted() {
+    const price = localStorage.getItem('maxPricePerVisitor') || 0.025;
     const event = new CustomEvent('monetizationprice', {
-      detail: { price: 0.002 },
+      detail: { price },
     });
     document.dispatchEvent(event);
 
@@ -54,7 +55,7 @@ var app = new Vue({
     this.addMicrio();
 
     document.monetization.addEventListener('monetizationprogress', (e) => {
-      // this.sendTransactionToFirebase(e);
+      this.sendTransactionToFirebase(e);
       const detail = e.detail;
       document.dispatchEvent(
         new CustomEvent('monetizationprogress', { detail })
