@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Monetization Blocked</title>
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
+    />
+    <style>
+      .threshold-alert .modal-content {
+        padding: 0 20px;
+      }
+
+      .threshold-alert .modal-background {
+        background-color: rgba(10, 10, 10, 0.76);
+      }
+
+      .threshold-alert .threshold-amount {
+        font-size: 2rem;
+        margin-left: 25px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="modal is-active threshold-alert">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box has-text-centered">
+          <div
+            class="is-flex is-align-items-center py-5 is-justify-content-center"
+          >
+            <span class="fa-stack fa-2x">
+              <i
+                class="fas fa-money-check fa-stack-2x"
+                style="color: rgba(0, 0, 0, 0.3)"
+              ></i>
+              <i
+                class="fas fa-exclamation-triangle fa-stack-1x"
+                data-fa-transform="shrink-2 up-9 right-16"
+                style="color: hsl(348, 100%, 61%)"
+              ></i>
+            </span>
+          </div>
+          <div class="is-flex py-3">
+            <div class="is-flex-grow-1">
+              <small>Jouw limiet</small><br />
+              <strong class="is-size-5">
+                &euro;
+                <span id="threshold">0.03</span>
+              </strong>
+            </div>
+            <div class="is-flex-grow-1">
+              <small>Deze website</small><br />
+              <strong class="is-size-5">
+                &euro;
+                <span id="price">0.05</span>
+              </strong>
+            </div>
+          </div>
+          <p class="pt-3">
+            Deze website kost meer dan jouw betaallimiet. Wil je deze website
+            <strong>eenmalig</strong> toestaan deze drempel te verhogen?
+          </p>
+          <div class="buttons is-justify-content-center pt-5">
+            <button class="button is-danger" id="wmDenyButton">Weigeren</button>
+            <button class="button is-success" id="wmAllowButton">
+              Toestaan
+            </button>
+          </div>
+        </div>
+
+        <button class="modal-close is-large" aria-label="close"></button>
+      </div>
+    </div>
+    <script src="monetization_disabled.js"></script>
+  </body>
+</html>

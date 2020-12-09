@@ -21,81 +21,16 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <script src="https://b.micr.io/micrio-3.1.min.js"></script>
-
-    <script
-      defer
-      src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"
-    ></script>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
     />
 
     <link rel="stylesheet" href="index.css" />
-    <link rel="stylesheet" href="threshold.css" />
   </head>
   <body>
     <div id="app">
-      <div class="modal is-active threshold-alert" v-if="showThreshold">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-          <div class="box has-text-centered">
-            <div
-              class="is-flex is-align-items-center py-5 is-justify-content-center"
-            >
-              <span class="fa-stack fa-2x">
-                <i
-                  class="fas fa-money-check fa-stack-2x"
-                  style="color: rgba(0, 0, 0, 0.3)"
-                ></i>
-                <i
-                  class="fas fa-exclamation-triangle fa-stack-1x"
-                  data-fa-transform="shrink-2 up-9 right-16"
-                  style="color: hsl(348, 100%, 61%)"
-                ></i>
-              </span>
-            </div>
-            <div class="is-flex py-3">
-              <div class="is-flex-grow-1">
-                <small>Jouw limiet</small><br />
-                <strong class="is-size-5">&euro;0.03</strong>
-              </div>
-              <div class="is-flex-grow-1">
-                <small>Deze website</small><br />
-                <strong class="is-size-5">&euro;0.05</strong>
-              </div>
-            </div>
-            <p class="pt-3">
-              Deze website kost meer dan jouw betaallimiet. Wil je deze website
-              <strong>eenmalig</strong> toestaan deze drempel te verhogen?
-            </p>
-            <div class="buttons is-justify-content-center pt-5">
-              <button class="button is-danger" @click="deny">Weigeren</button>
-              <button class="button is-success" @click="approve">
-                Toestaan
-              </button>
-            </div>
-          </div>
-
-          <button class="modal-close is-large" aria-label="close"></button>
-        </div>
-      </div>
       <div id="container"></div>
-      <div v-if="monetizationDenied" class="container pt-6 p-5">
-        <h1 class="subtitle">
-          Je hebt ervoor gekozen de betaling van de deze website te blokkeren.
-        </h1>
-        <p>
-          Deze website is niet beschikbaar als je Web Monetisatie uit hebt
-          geschakeld of deze geweigerd hebt.
-        </p>
-        <p class="py-3">
-          Web Monetisatie toch inschakelen? Klik dan op de onderstaande knop.
-        </p>
-        <button class="button is-success" @click="approve">
-          Web Monetisatie inschakelen
-        </button>
-      </div>
     </div>
     <script src="index.js"></script>
   </body>

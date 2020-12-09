@@ -1,0 +1,29 @@
+{
+  "name": "Web Monetization Threshold",
+  "version": "1.0",
+  "description": "Set your maximum Web Monetization value for websites.",
+  "permissions": ["storage", "declarativeContent", "activeTab"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "page_action": {
+    "default_popup": "popup.html"
+  },
+
+  "manifest_version": 2,
+  "content_scripts": [
+    {
+      "run_at": "document_start",
+      "matches": ["*://*/*"],
+      "js": ["content_script.js"]
+    },
+    {
+      "run_at": "document_end",
+      "matches": ["*://*/*"],
+      "js": ["post_content_script.js"]
+    }
+  ],
+  "web_accessible_resources": ["monetization_disabled.html"],
+  "content_security_policy": "script-src 'self' https://use.fontawesome.com ; object-src 'self'"
+}
