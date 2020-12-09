@@ -4,7 +4,6 @@ let WM_PRICE = 0;
 document.addEventListener('monetizationprice', (e) => {
   const detail = e.detail;
   chrome.storage.sync.get('wmAllowedUrl', (result) => {
-    console.log(result.wmAllowedUrl, document.documentURI);
     if (result.wmAllowedUrl === document.documentURI) {
       chrome.storage.sync.set({ wmAllowedUrl: null }, undefined);
       return;

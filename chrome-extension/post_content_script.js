@@ -1,22 +1,27 @@
-const headObserver = () => {
-  const observer = new MutationObserver((record) => {
-    record = record[0];
-    if (record.addedNodes && record.addedNodes.length > 0) {
-      record.addedNodes.forEach((element) => {
-        if (element.nodeName === 'META' && element.name === 'monetization') {
-          if (WM_PRICE > WM_THRESHOLD) {
-            console.log('monetization not allowed, removing element');
-            element.remove();
-          }
-        }
-      });
-    }
-  });
-  observer.observe(document.head, {
-    attributes: false,
-    childList: true,
-    subtree: false,
-  });
-};
+let currency, scale;
+let raw = 0;
+let paidInXrp = 0;
+let paidinEur = 0;
 
-headObserver();
+const RIPPLE2EUR = 0.459915;
+
+document.addEventListener('monetizationprogress', (e) => {
+  if (raw === 0) {
+    scale = e.detail.assetScale;
+    currency = e.detail.assetCode;
+  }
+
+  raw += Number(e.detail.amount);
+  paidInXrp = (raw * Math.pow(10, -scale)).toFixed(scale);
+  paidInEur = paidInXrp * RIPPLE2EUR;
+
+  console.log(`Paid € ${paidInEur}`);
+  console.log(`Paid XRP ${paidInXrp}`);
+
+  if (WM_PRICE !== 0 && paidInEur > WM_PRICE) {
+    console.log(
+      `maximum price of ${WM_PRICE} reached. Stopping monetization...`
+    );
+    document.querySelector('meta[name=monetization]').remove();
+  }
+});

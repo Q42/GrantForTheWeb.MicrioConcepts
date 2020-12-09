@@ -46,16 +46,19 @@ var app = new Vue({
   },
   mounted() {
     const event = new CustomEvent('monetizationprice', {
-      detail: { price: 10.0 },
+      detail: { price: 0.002 },
     });
     document.dispatchEvent(event);
 
     this.addMonetization();
     this.addMicrio();
 
-    document.monetization.addEventListener(
-      'monetizationprogress',
-      this.sendTransactionToFirebase
-    );
+    document.monetization.addEventListener('monetizationprogress', (e) => {
+      // this.sendTransactionToFirebase(e);
+      const detail = e.detail;
+      document.dispatchEvent(
+        new CustomEvent('monetizationprogress', { detail })
+      );
+    });
   },
 });

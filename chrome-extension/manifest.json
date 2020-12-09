@@ -19,7 +19,7 @@
       "js": ["content_script.js"]
     },
     {
-      "run_at": "document_end",
+      "run_at": "document_idle",
       "matches": ["*://*/*"],
       "js": ["post_content_script.js"]
     }
