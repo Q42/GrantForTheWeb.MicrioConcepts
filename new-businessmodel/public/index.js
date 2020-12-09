@@ -57,6 +57,9 @@ var app = new Vue({
     document.monetization.addEventListener('monetizationprogress', (e) => {
       this.sendTransactionToFirebase(e);
       const detail = e.detail;
+
+      // The chrome extension can not access the monetization property of the document,
+      // so we send it as a separate one.
       document.dispatchEvent(
         new CustomEvent('monetizationprogress', { detail })
       );
