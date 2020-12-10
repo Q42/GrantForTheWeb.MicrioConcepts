@@ -1,17 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-      button {
-        height: 30px;
-        width: 30px;
-        outline: none;
-      }
-    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
+    />
   </head>
   <body>
-    <input type="text" id="threshold" />
-    <button id="saveThreshold">Save</button>
+    <div class="box mb-0">
+      <div class="field">
+        <label class="label">Max Price (&euro;)</label>
+        <div class="control">
+          <input class="input" type="text" id="threshold" />
+        </div>
+        <p class="help">
+          Maximum price you want to pay for web monetized content
+        </p>
+      </div>
+      <div class="field">
+        <label class="label">Max. Rate / hour (&euro;/h)</label>
+        <div class="control">
+          <input class="input" type="text" id="rate" />
+        </div>
+        <p class="help">
+          Maximum rate per hour that you want to pay for monetized content
+        </p>
+      </div>
+      <button id="saveThreshold" class="button is-success">Save</button>
+    </div>
     <script src="popup.js"></script>
   </body>
 </html>

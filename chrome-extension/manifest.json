@@ -10,7 +10,6 @@
   "page_action": {
     "default_popup": "popup.html"
   },
-
   "manifest_version": 2,
   "content_scripts": [
     {
@@ -19,11 +18,11 @@
       "js": ["content_script.js"]
     },
     {
-      "run_at": "document_idle",
+      "run_at": "document_end",
       "matches": ["*://*/*"],
       "js": ["post_content_script.js"]
     }
   ],
-  "web_accessible_resources": ["monetization_disabled.html"],
+  "web_accessible_resources": ["monetization_blocked.html"],
   "content_security_policy": "script-src 'self' https://use.fontawesome.com ; object-src 'self'"
 }

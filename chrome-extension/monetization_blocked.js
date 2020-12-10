@@ -1,6 +1,7 @@
-let price;
+let value;
 let url;
-let threshold;
+let limit;
+let mode;
 
 const wmAllowButton = document.getElementById('wmAllowButton');
 const wmDenyButton = document.getElementById('wmDenyButton');
@@ -9,22 +10,23 @@ wmDenyButton.onclick = () => {
   window.location = 'https://q42.nl';
 };
 
-chrome.storage.sync.get('wmRequestData', (result) => {
+chrome.storage.sync.get(['wmRequestData', 'threshold', 'rate'], (result) => {
   const data = result.wmRequestData;
-  console.log(data);
+
   url = data.wmBlockedUrl;
-  price = data.wmBlockedPrice;
+  value = data.wmBlockedPrice;
+
+  console.log(url, value);
+
+  if (data.mode === 'rate') limit = `${result.rate} / h`;
+  else limit = result.threshold;
+
+  document.getElementById(`value`).innerHTML = value;
+  document.getElementById(`limit`).innerHTML = limit;
 
   wmAllowButton.onclick = () => {
     chrome.storage.sync.set({ wmAllowedUrl: url }, () => {
       window.location = url;
     });
   };
-
-  document.getElementById('price').innerHTML = price;
-});
-
-chrome.storage.sync.get('threshold', (result) => {
-  threshold = result.threshold || 0.5;
-  document.getElementById('threshold').innerHTML = threshold;
 });

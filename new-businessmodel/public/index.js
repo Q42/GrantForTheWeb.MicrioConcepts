@@ -64,13 +64,27 @@ var app = new Vue({
       }
 
       this.stashedRevenueFirebaseUpdateAmount = 0
-    }
+    },
+    // 3600s = 1 hour | 60s = 1 minute
+    getRate(timeUnit = 3600) {
+      const timeWindow = localStorage.getItem('timeWindow');
+      const maxPricePerVisitor = localStorage.getItem('maxPricePerVisitor');
+
+      return timeWindow && maxPricePerVisitor
+        ? (maxPricePerVisitor / timeWindow) * timeUnit
+        : null;
+    },
   },
   mounted() {
     const price = localStorage.getItem('maxPricePerVisitor') || 0.025;
+    const rate = this.getRate();
+
+    console.log(price, rate);
+
     const event = new CustomEvent('monetizationprice', {
-      detail: { price },
+      detail: { price, rate },
     });
+
     document.dispatchEvent(event);
 
     this.addMonetization();
