@@ -7,10 +7,12 @@ META_TAG.setAttribute('content', WALLET_ADDRESS);
 
 var db = firebase.firestore();
 
+
 var app = new Vue({
   el: '#app',
   data: {
     micrio: null,
+    stashedRevenueFirebaseUpdateAmount: 0
   },
   methods: {
     addMonetization() {
@@ -43,6 +45,26 @@ var app = new Vue({
           console.error('Error adding document: ', error);
         });
     },
+    updateRevenueInFirebase() {
+      if (!this.stashedRevenueFirebaseUpdateAmount) {
+        return
+      }
+
+      const increment = firebase.firestore.FieldValue.increment(this.stashedRevenueFirebaseUpdateAmount);
+      const micrioDocRef = db.collection('revenue').doc(MICRIO_ID);
+
+      micrioDocRef.set({
+        lastUpdated: Date.now()
+      }, { merge: true })
+
+      try {
+        micrioDocRef.update({ total: increment });
+      } catch(e) {
+        console.log('error', e)
+      }
+
+      this.stashedRevenueFirebaseUpdateAmount = 0
+    }
   },
   mounted() {
     const price = localStorage.getItem('maxPricePerVisitor') || 0.025;
@@ -54,8 +76,11 @@ var app = new Vue({
     this.addMonetization();
     this.addMicrio();
 
+    setInterval(this.updateRevenueInFirebase, 2000)
+
     document.monetization.addEventListener('monetizationprogress', (e) => {
-      this.sendTransactionToFirebase(e);
+      this.stashedRevenueFirebaseUpdateAmount += parseInt(e.detail.amount)
+
       const detail = e.detail;
 
       // The chrome extension can not access the monetization property of the document,

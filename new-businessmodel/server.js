@@ -15,6 +15,10 @@ app.get('/admin', (request, response) => {
   response.sendFile(__dirname + '/views/admin.html');
 });
 
+app.get("/statistics", (request, response) => {
+  response.sendFile(__dirname + "/views/statistics.html");
+});
+
 // listen for requests :)
 const listener = app.listen(process.env.PORT, () => {
   console.log(

@@ -6,8 +6,16 @@ body {
   background: #f8faff;
   color: #363636;
   min-height: 100vh;
-  padding-top: 100px !important;
   padding-bottom: 100px;
+}
+
+.navbar {
+  background: #000;
+  margin-bottom: 60px;
+}
+
+.navbar-item {
+  color: #FFF;
 }
 
 h2 {
