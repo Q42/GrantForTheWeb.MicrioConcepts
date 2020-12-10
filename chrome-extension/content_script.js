@@ -12,7 +12,7 @@ document.addEventListener('monetizationprice', (e) => {
 
     chrome.storage.sync.get(['rate'], (result) => {
       WM_MAX_RATE = result.rate;
-      WM_PRICE = detail.price;
+      WM_PRICE = detail.maxPrice;
       WM_RATE = detail.rate;
 
       if (WM_RATE > WM_MAX_RATE) {

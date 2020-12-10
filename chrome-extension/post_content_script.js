@@ -13,9 +13,16 @@ document.addEventListener('monetizationprogress', (e) => {
 
   raw += Number(e.detail.amount);
   paidInXrp = (raw * Math.pow(10, -scale)).toFixed(scale);
-  paidInEur = paidInXrp * RIPPLE2EUR;
 
-  console.log(`Paid € ${paidInEur}`);
+  
+  console.log('rate', WM_RATE)
+  console.log('price', WM_PRICE)
+
+  // this is for mocking a higher price than Coil is currently providing us: $0.36 / €0.30 per hour
+  const multiplier = WM_RATE / 0.30 
+  paidInEur = paidInXrp * RIPPLE2EUR * multiplier;
+
+  console.log(`Paid € ${paidInEur} (with multiplier ${multiplier})`);
   console.log(`Paid XRP ${paidInXrp}`);
 
   if (WM_PRICE !== 0 && paidInEur > WM_PRICE) {
