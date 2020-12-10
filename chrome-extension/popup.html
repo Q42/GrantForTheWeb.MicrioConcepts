@@ -5,28 +5,33 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
     />
+    <style>
+      h1 {
+        line-height: 1.2;
+        margin-bottom: 20px;
+      }
+    </style>
   </head>
   <body>
     <div class="box mb-0">
+      <h1 class="is-size-4">Automatic payment<br />
+      for Monetized content</h1>
+
       <div class="field">
-        <label class="label">Max Price (&euro;)</label>
-        <div class="control">
-          <input class="input" type="text" id="threshold" />
-        </div>
+        <label class="label">Maximum rate per hour</label>
+
+        <div class="field has-addons">
+          <p class="control">
+            <a class="button is-static">&euro;</a>
+          </p> 
+          <p class="control"><input class="input" type="text" id="rate" /></p>
+        </div>  
+
         <p class="help">
-          Maximum price you want to pay for web monetized content
+          We ask you for permission when a website has a higher rate.
         </p>
       </div>
-      <div class="field">
-        <label class="label">Max. Rate / hour (&euro;/h)</label>
-        <div class="control">
-          <input class="input" type="text" id="rate" />
-        </div>
-        <p class="help">
-          Maximum rate per hour that you want to pay for monetized content
-        </p>
-      </div>
-      <button id="saveThreshold" class="button is-success">Save</button>
+      <button id="saveThreshold" class="button is-link">Save</button>
     </div>
     <script src="popup.js"></script>
   </body>

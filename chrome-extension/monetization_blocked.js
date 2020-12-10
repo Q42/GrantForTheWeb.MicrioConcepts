@@ -10,7 +10,7 @@ wmDenyButton.onclick = () => {
   window.location = 'https://q42.nl';
 };
 
-chrome.storage.sync.get(['wmRequestData', 'threshold', 'rate'], (result) => {
+chrome.storage.sync.get(['wmRequestData', 'rate'], (result) => {
   const data = result.wmRequestData;
 
   url = data.wmBlockedUrl;

@@ -1,4 +1,3 @@
-let WM_THRESHOLD = 0;
 let WM_MAX_RATE = 0;
 let WM_RATE = 0;
 let WM_PRICE = 0;
@@ -11,19 +10,16 @@ document.addEventListener('monetizationprice', (e) => {
       return;
     }
 
-    chrome.storage.sync.get(['threshold', 'rate'], (result) => {
-      WM_THRESHOLD = result.threshold;
+    chrome.storage.sync.get(['rate'], (result) => {
       WM_MAX_RATE = result.rate;
       WM_PRICE = detail.price;
       WM_RATE = detail.rate;
 
-      if (WM_PRICE > WM_THRESHOLD || WM_RATE > WM_MAX_RATE) {
-        const isPrice = WM_PRICE > WM_THRESHOLD;
-
+      if (WM_RATE > WM_MAX_RATE) {
         const wmRequestData = {
           wmRequestData: {
-            mode: isPrice ? 'threshold' : 'rate',
-            wmBlockedPrice: isPrice ? WM_PRICE : WM_RATE,
+            mode: 'rate',
+            wmBlockedPrice: WM_RATE,
             wmBlockedUrl: document.documentURI,
           },
         };

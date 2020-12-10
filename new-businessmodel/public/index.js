@@ -66,9 +66,9 @@ var app = new Vue({
       this.stashedRevenueFirebaseUpdateAmount = 0
     },
     // 3600s = 1 hour | 60s = 1 minute
-    getRate(timeUnit = 3600) {
-      const timeWindow = localStorage.getItem('timeWindow');
-      const maxPricePerVisitor = localStorage.getItem('maxPricePerVisitor');
+    getRatePerHour(maxPrice, timeUnit = 3600) {
+      const timeWindow = localStorage.getItem('timeWindow'); // Seconds
+      const maxPricePerVisitor = maxPrice;
 
       return timeWindow && maxPricePerVisitor
         ? (maxPricePerVisitor / timeWindow) * timeUnit
@@ -76,13 +76,13 @@ var app = new Vue({
     },
   },
   mounted() {
-    const price = localStorage.getItem('maxPricePerVisitor') || 0.025;
-    const rate = this.getRate();
+    const maxPrice = localStorage.getItem('maxPricePerVisitor') || 0.025; // Euro
+    const rate = this.getRatePerHour(maxPrice); // Euro
 
-    console.log(price, rate);
+    console.log(maxPrice, rate);
 
     const event = new CustomEvent('monetizationprice', {
-      detail: { price, rate },
+      detail: { maxPrice, rate },
     });
 
     document.dispatchEvent(event);

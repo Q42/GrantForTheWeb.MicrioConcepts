@@ -1,9 +1,5 @@
 chrome.runtime.onInstalled.addListener(function () {
-  chrome.storage.sync.set({ threshold: '0.05' }, function () {
-    console.log('Threshold set.');
-  });
-
-  chrome.storage.sync.set({ rate: '0.36' }, function () {
+  chrome.storage.sync.set({ rate: '0.30' }, function () {
     console.log('Rate set.');
   });
 
