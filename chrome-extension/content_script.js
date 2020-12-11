@@ -4,32 +4,28 @@ let WM_PRICE = 0;
 
 document.addEventListener('monetizationprice', (e) => {
   const detail = e.detail;
-  chrome.storage.sync.get('wmAllowedUrl', (result) => {
+
+  chrome.storage.sync.get(['wmAllowedUrl', 'rate'], (result) => {
+    WM_MAX_RATE = result.rate;
+    WM_PRICE = detail.maxPrice;
+    WM_RATE = detail.rate;
+
     if (result.wmAllowedUrl === document.documentURI) {
       chrome.storage.sync.set({ wmAllowedUrl: null }, undefined);
-      return;
     }
 
-    chrome.storage.sync.get(['rate'], (result) => {
-      WM_MAX_RATE = result.rate;
-      WM_PRICE = detail.maxPrice;
-      WM_RATE = detail.rate;
+    if (result.wmAllowedUrl !== document.documentURI && WM_RATE > WM_MAX_RATE) {
+      const wmRequestData = {
+        wmRequestData: {
+          mode: 'rate',
+          wmBlockedPrice: WM_RATE,
+          wmBlockedUrl: document.documentURI,
+        },
+      };
 
-      if (WM_RATE > WM_MAX_RATE) {
-        const wmRequestData = {
-          wmRequestData: {
-            mode: 'rate',
-            wmBlockedPrice: WM_RATE,
-            wmBlockedUrl: document.documentURI,
-          },
-        };
-
-        chrome.storage.sync.set(wmRequestData, () => {
-          window.location = chrome.extension.getURL(
-            'monetization_blocked.html'
-          );
-        });
-      }
-    });
+      chrome.storage.sync.set(wmRequestData, () => {
+        window.location = chrome.extension.getURL('monetization_blocked.html');
+      });
+    }
   });
 });
