@@ -1,15 +1,18 @@
-# GrantForTheWeb.MicrioConcepts
+# Grant for the Web x Q42
 
-This repository contains multiple proof of concepts for Web Monetization in Micrio.
+This repository is a collection of examples, prototypes and suggestions that we have developed as part of the Grant for the Web project at Q42. The goal is to research if Web Monetization could be a viable addition or replacement of the Micrio bussinessmodel.
 
-## Prototype with business model
-After installing node modules, run `node server.js` in the folder `new-businessmodel`.
+First of all, we did some testing with the API itself. We looked at the draft and how the implementation should with Coil browser plugin. We also have taken a look at the Interledger Protocol, without the SPSP that is provided by the API.
 
-## Examples
+## Examples and try-outs
 
-Each example has its own folder, just run that in your browser. If the example fails to render some resources, add a trailing slash to the URL.
+In the [examples]() directory, you can find multiple examples for the [ILP]() and [Web Monetization API]().
+TBW...
 
-- [Always on](https://q42.github.io/GrantForTheWeb.MicrioConcepts/always-on/)
-- [Content interaction](https://q42.github.io/GrantForTheWeb.MicrioConcepts/content-interaction/)
-- [General interaction](https://q42.github.io/GrantForTheWeb.MicrioConcepts/general-interaction/)
-- [Bandwidth usage](https://q42.github.io/GrantForTheWeb.MicrioConcepts/bandwidth-usage/)
+## Proof of Concept
+
+TBW
+
+## Suggestions
+
+TBW
