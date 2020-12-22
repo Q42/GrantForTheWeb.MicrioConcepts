@@ -14,11 +14,6 @@ var app = new Vue({
     stashedRevenueFirebaseUpdateAmount: 0,
   },
   methods: {
-    addMonetization() {
-      if (!document.querySelector('meta[name=monetization]')) {
-        document.head.appendChild(META_TAG);
-      }
-    },
     addMicrio() {
       this.micrio = new Micrio({
         id: MICRIO_ID,
@@ -69,29 +64,8 @@ var app = new Vue({
 
       this.stashedRevenueFirebaseUpdateAmount = 0;
     },
-    // 3600s = 1 hour | 60s = 1 minute
-    getRatePerHour(maxPrice, timeUnit = 3600) {
-      const timeWindow = localStorage.getItem('timeWindow'); // Seconds
-      const maxPricePerVisitor = maxPrice;
-
-      return timeWindow && maxPricePerVisitor
-        ? (maxPricePerVisitor / timeWindow) * timeUnit
-        : null;
-    },
   },
   mounted() {
-    // const maxPrice = localStorage.getItem('maxPricePerVisitor') || 0.025; // Euro
-    // const rate = this.getRatePerHour(maxPrice); // Euro
-
-    // console.log(maxPrice, rate);
-
-    // const event = new CustomEvent('monetizationprice', {
-    //   detail: { maxPrice, rate },
-    // });
-
-    // document.dispatchEvent(event);
-
-    // this.addMonetization();
     this.addMicrio();
 
     setInterval(this.updateRevenueInFirebase, 2000);

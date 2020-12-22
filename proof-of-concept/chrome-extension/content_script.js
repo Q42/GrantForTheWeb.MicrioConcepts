@@ -71,6 +71,8 @@ console.info(`Maximum content-price: ${PRICE} ${CODE}`);
  * ====================
  *
  * Automatically stops monetization when maximum amount has been reached.
+ * The eventlistener is placed on the document instead of document.monetization
+ * because we can not reach that from here.
  */
 document.addEventListener('monetizationprogress', (e) => {
   if (raw === 0) {
