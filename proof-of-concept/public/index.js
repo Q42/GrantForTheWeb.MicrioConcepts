@@ -7,12 +7,11 @@ META_TAG.setAttribute('content', WALLET_ADDRESS);
 
 var db = firebase.firestore();
 
-
 var app = new Vue({
   el: '#app',
   data: {
     micrio: null,
-    stashedRevenueFirebaseUpdateAmount: 0
+    stashedRevenueFirebaseUpdateAmount: 0,
   },
   methods: {
     addMonetization() {
@@ -47,23 +46,28 @@ var app = new Vue({
     },
     updateRevenueInFirebase() {
       if (!this.stashedRevenueFirebaseUpdateAmount) {
-        return
+        return;
       }
 
-      const increment = firebase.firestore.FieldValue.increment(this.stashedRevenueFirebaseUpdateAmount);
+      const increment = firebase.firestore.FieldValue.increment(
+        this.stashedRevenueFirebaseUpdateAmount
+      );
       const micrioDocRef = db.collection('revenue').doc(MICRIO_ID);
 
-      micrioDocRef.set({
-        lastUpdated: Date.now()
-      }, { merge: true })
+      micrioDocRef.set(
+        {
+          lastUpdated: Date.now(),
+        },
+        { merge: true }
+      );
 
       try {
         micrioDocRef.update({ total: increment });
-      } catch(e) {
-        console.log('error', e)
+      } catch (e) {
+        console.log('error', e);
       }
 
-      this.stashedRevenueFirebaseUpdateAmount = 0
+      this.stashedRevenueFirebaseUpdateAmount = 0;
     },
     // 3600s = 1 hour | 60s = 1 minute
     getRatePerHour(maxPrice, timeUnit = 3600) {
@@ -76,24 +80,24 @@ var app = new Vue({
     },
   },
   mounted() {
-    const maxPrice = localStorage.getItem('maxPricePerVisitor') || 0.025; // Euro
-    const rate = this.getRatePerHour(maxPrice); // Euro
+    // const maxPrice = localStorage.getItem('maxPricePerVisitor') || 0.025; // Euro
+    // const rate = this.getRatePerHour(maxPrice); // Euro
 
-    console.log(maxPrice, rate);
+    // console.log(maxPrice, rate);
 
-    const event = new CustomEvent('monetizationprice', {
-      detail: { maxPrice, rate },
-    });
+    // const event = new CustomEvent('monetizationprice', {
+    //   detail: { maxPrice, rate },
+    // });
 
-    document.dispatchEvent(event);
+    // document.dispatchEvent(event);
 
-    this.addMonetization();
+    // this.addMonetization();
     this.addMicrio();
 
-    setInterval(this.updateRevenueInFirebase, 2000)
+    setInterval(this.updateRevenueInFirebase, 2000);
 
     document.monetization.addEventListener('monetizationprogress', (e) => {
-      this.stashedRevenueFirebaseUpdateAmount += parseInt(e.detail.amount)
+      this.stashedRevenueFirebaseUpdateAmount += parseInt(e.detail.amount);
 
       const detail = e.detail;
 

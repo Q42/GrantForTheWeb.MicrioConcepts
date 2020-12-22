@@ -23,4 +23,4 @@ In order to look if Web Monetization can be used as a viable option or addition 
 ## Suggestions
 
 - Expand the `monetization` meta-tag with more options, like rate, currency and price.
-- Expand the `monetization` API with used provided maximum prices/rates for web-content.
+- Expand the Monetization API with user provided maximum prices/rates for web-content.

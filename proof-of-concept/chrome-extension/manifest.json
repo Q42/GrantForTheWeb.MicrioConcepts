@@ -13,14 +13,9 @@
   "manifest_version": 2,
   "content_scripts": [
     {
-      "run_at": "document_start",
-      "matches": ["*://*/*"],
-      "js": ["content_script.js"]
-    },
-    {
       "run_at": "document_end",
       "matches": ["*://*/*"],
-      "js": ["post_content_script.js"]
+      "js": ["content_script.js"]
     }
   ],
   "web_accessible_resources": ["monetization_blocked.html"],
