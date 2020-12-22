@@ -29,6 +29,11 @@ const RATE = (RAW_RATE / Math.pow(10, SCALE)) * 60; // set to rate per hour.
 
 /**
  * Web Monetization guard
+ * ======================
+ *
+ * When the content's rate exceeds the user's maximum rate, the user is redirected
+ * to a notification screen which lets the user either allow or deny the monetization.
+ *
  */
 chrome.storage.sync.get(['wmAllowedUrl', 'rate'], (result) => {
   WM_MAX_RATE = result.rate;
@@ -54,7 +59,7 @@ chrome.storage.sync.get(['wmAllowedUrl', 'rate'], (result) => {
 });
 
 /**
- * LOGGING
+ * Logging
  */
 
 console.info('Web Monetization Settings:');
@@ -62,7 +67,10 @@ console.info(`Content rate: ${RATE}`);
 console.info(`Maximum content-price: ${PRICE} ${CODE}`);
 
 /**
- * Automatically stop monetization when maximum price has been reached.
+ * Monetization Tracker
+ * ====================
+ *
+ * Automatically stops monetization when maximum amount has been reached.
  */
 document.addEventListener('monetizationprogress', (e) => {
   if (raw === 0) {
