@@ -1,4 +1,4 @@
-# Enhanced Web Monetization Mocker
+# Enhanced Web Monetization Mocker (TO BE REWRITTEN)
 
 This chrome extension mocks extra features into the Web Monetization API. It should be used with "proof of concept" prototype found [here](). For the Proof of Concept we need functionality that currently is not present in browsers or through the Web Monetization API.
 

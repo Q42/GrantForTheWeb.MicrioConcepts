@@ -22,5 +22,35 @@ In order to look if Web Monetization can be used as a viable option or addition 
 
 ## Suggestions
 
-- Expand the `monetization` meta-tag with more options, like rate, currency and price.
+The currently drafted Web Monetization Spec is certainly a good first step into the right direction. However, if we want to use it as a viable addition to Micrio businessmodel some changes need to be made to fit our vision of the product:
+
+- Expand the `monetization` meta-tag with more options, like rate, currency and maximum price.
 - Expand the Monetization API with user provided maximum prices/rates for web-content.
+
+### Extra Monetization tags
+
+We think that the current meta-tag implementation is a good starting point, but it does not have all features we would expect from monetization related APIs. We feel like that API should have more options to customize the payment behavior, like setting a maximum amount, amount per time-unit and the currency. By adding more tags, the customization of payment options would be possible and the API is suited for more scenarios.
+
+**`monetization:asset`**
+
+```html
+<meta name="monetization:asset:max_amount" value="250" />
+```
+
+One of the most important changes would be to add an extra `monetization:asset:max_amount` or "price" meta-tag that hooks into the `monetizationprogress`. The value of the `content` attribute should be a numeric value which corresponds with the price of that web-page. When that specific value is reached, the monetization stream should stop automatically.
+
+```html
+<meta name="monetization:asset:scale" value="4" />
+```
+
+The `scale` tag defines the scale of the payment. The scale divides the `amount` and `max_amount` by 10 to the power of the value (`amount / 10 ^ scale`).
+
+```html
+<meta name="monetization:asset:code" value="EUR" />
+```
+
+The `code` tag defines the currency in which the payment should be done.
+
+### More user control from the browser
+
+tbw...
