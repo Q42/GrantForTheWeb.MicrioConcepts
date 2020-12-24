@@ -12,6 +12,7 @@ var app = new Vue({
   data: {
     micrio: null,
     stashedRevenueFirebaseUpdateAmount: 0,
+    monetizationActive: false,
   },
   methods: {
     addMicrio() {
@@ -80,6 +81,14 @@ var app = new Vue({
       document.dispatchEvent(
         new CustomEvent('monetizationprogress', { detail })
       );
+    });
+
+    document.monetization.addEventListener('monetizationstart', () => {
+      this.monetizationActive = true;
+    });
+
+    document.monetization.addEventListener('monetizationstop', () => {
+      this.monetizationActive = false;
     });
   },
 });

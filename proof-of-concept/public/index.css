@@ -3,3 +3,44 @@ body {
   overflow: hidden;
   height: 100vh;
 }
+
+.monetization-pulse {
+  background: white;
+  margin: 20px;
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(1, 255, 112, 1);
+  transform: scale(1);
+  animation: pulse 2s infinite;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.monetization-pulse:hover {
+  cursor: help;
+}
+
+.monetization-pulse.active {
+  opacity: 1;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(1, 255, 112, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 20px rgba(1, 255, 112, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(1, 255, 112, 0);
+  }
+}
