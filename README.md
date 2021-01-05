@@ -16,7 +16,7 @@ We also performed a Real-User interview to see how Web Monetization could work i
 
 ## Proof of Concept
 
-To determine if Web Monetization can be used as a viable option or addition to the Micrio business model, we developed a proof-of-concept with the learnings we acquired through the examples and our research. It adds extra features to the WM-API, like maximum rate per time and a user controlled limit. We have mocked these features with a custom chrome extension that listens to specific events that can be found in [Q42/GrantForTheWeb.ChromeExtension]().
+To determine if Web Monetization can be used as a viable option or addition to the Micrio business model, we developed a proof-of-concept with the learnings we acquired through the examples and our research. It adds extra features to the WM-API, like maximum rate per time and a user controlled limit. We have mocked these features with a custom chrome extension that listens to specific events that can be found in [Q42/GrantForTheWeb.ChromeExtension](https://github.com/Q42/GrantForTheWeb.ChromeExtension).
 
 ## Suggestions
 
