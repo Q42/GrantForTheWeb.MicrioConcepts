@@ -32,19 +32,25 @@ We think that the current meta-tag implementation is a good starting point, but 
 **`monetization:asset`**
 
 ```html
-<meta name="monetization:asset:max_amount" value="250" />
+<meta name="monetization:asset:amount" content="125" />
+```
+
+The `amount` tag defines the price per hour in the currency calculated by the `code` and `scale` tag. This replaces the fixed rate set in the current implementation.
+
+```html
+<meta name="monetization:asset:max_amount" content="250" />
 ```
 
 One of the most important changes would be to add an extra `monetization:asset:max_amount` or "price" meta-tag that hooks into the `monetizationprogress`. The value of the `content` attribute should be a numeric value which corresponds with the price of that web-page. When that specific value is reached, the monetization stream should stop automatically.
 
 ```html
-<meta name="monetization:asset:scale" value="4" />
+<meta name="monetization:asset:scale" content="4" />
 ```
 
 The `scale` tag defines the scale of the payment. The scale divides the `amount` and `max_amount` by 10 to the power of the value (e.g. `amount / 10 ^ scale`).
 
 ```html
-<meta name="monetization:asset:code" value="EUR" />
+<meta name="monetization:asset:code" content="EUR" />
 ```
 
 The `code` tag defines the currency in which the payment should be done. In the current state it can be either euro (`EUR`) or US Dollar (`USD`).
@@ -52,3 +58,7 @@ The `code` tag defines the currency in which the payment should be done. In the 
 ### More user control from the browser
 
 By unlocking the payment stream, we also expose the user to more risk. Websites can now ask high prices, without the users' explicit consent. In order to shield the user from this, we think the monetization API should include a user-defined maximum rate per hour that, when exceeded, blocks the requested website and asks if a user would provide a one-time exception for the rate limit.
+
+## Next steps?
+
+At Q42 and Micrio we will be closely monitoring the state of Web Monetization in browsers. While in its current state Web Monetization is not a great fit for our objectives, we do think that Web Monetization will be part of the future of the browser eco-system.
