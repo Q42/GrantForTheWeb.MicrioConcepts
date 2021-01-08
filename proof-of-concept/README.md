@@ -1,4 +1,4 @@
-# Proof of Concept (TBW)
+# Proof of Concept
 
 This proof of concept is our suggestion of how Micrio could profit from Web Monetization.
 
@@ -29,7 +29,7 @@ In able to run this POC you **need to use Google Chrome** and have the **Coil br
 The POC consists out of two elements:
 
 - A webapp with monetization meta tags
-- A chrome web-extension that mocks extra behaviour for the meta tags.
+- A chrome web-extension that mocks extra behaviour for the meta tags located at [Q42/GrantForTheWeb.ChromeExtension](https://github.com/Q42/GrantForTheWeb.ChromeExtension).
 
 ### Chrome Extension
 
@@ -46,19 +46,25 @@ meta tags and uses those values to calculate the different values.
 <meta name="monetization:asset:amount" content="125" />
 ```
 
-The amount payed per minute. Note: Actual amount is divided by the scale property.
+The `amount` tag defines the price per hour in the currency calculated by the `code` and `scale` tag. This replaces the fixed rate set in the current implementation.
 
 ```html
-<meta name="monetization:asset:code" content="EUR" />
+<meta name="monetization:asset:max_amount" content="250" />
 ```
 
-The currency that is used.
+One of the most important changes would be to add an extra `monetization:asset:max_amount` or "price" meta-tag that hooks into the `monetizationprogress`. The value of the `content` attribute should be a numeric value which corresponds with the price of that web-page. When that specific value is reached, the monetization stream should stop automatically.
 
 ```html
 <meta name="monetization:asset:scale" content="4" />
 ```
 
-The scale of the asset that is used. This example uses a scale of 4, meaning that the amount is divided by 10 ^ 4 (10000).
+The `scale` tag defines the scale of the payment. The scale divides the `amount` and `max_amount` by 10 to the power of the value (e.g. `amount / 10 ^ scale`).
+
+```html
+<meta name="monetization:asset:code" content="EUR" />
+```
+
+The `code` tag defines the currency in which the payment should be done. In the current state it can be either euro (`EUR`) or US Dollar (`USD`).
 
 ### Web-App
 
