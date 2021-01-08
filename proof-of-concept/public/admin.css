@@ -60,3 +60,36 @@ td span {
   display: inline-block;
   min-width: 150px;
 }
+
+.github-link {
+  text-align: center;
+  display: block;
+  margin-top: 50px;
+}
+
+.github-link span {
+  position: relative;
+  font-size: 0.8em;
+  color: #333;
+}
+
+.github-link span:after {
+  content: ' ';
+  height: 1px;
+  width: 0;
+  background: #333;
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  transition: width 0.5s;
+}
+
+.github-link:hover span:after {
+  width: 100%;
+}
+
+.github-link img {
+  width: 24px;
+  margin-left: 10px;
+  vertical-align: bottom;
+}
