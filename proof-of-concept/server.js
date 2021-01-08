@@ -8,15 +8,15 @@ app.use(express.static('public'));
 
 // https://expressjs.com/en/starter/basic-routing.html
 app.get('/', (request, response) => {
-  response.sendFile(__dirname + '/views/index.html');
+  response.sendFile(__dirname + '/public/index.html');
 });
 
 app.get('/admin', (request, response) => {
-  response.sendFile(__dirname + '/views/admin.html');
+  response.sendFile(__dirname + '/public/admin.html');
 });
 
 app.get("/statistics", (request, response) => {
-  response.sendFile(__dirname + "/views/statistics.html");
+  response.sendFile(__dirname + "/public/statistics.html");
 });
 
 // listen for requests :)
