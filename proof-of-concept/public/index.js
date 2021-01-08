@@ -5,13 +5,11 @@ const META_TAG = document.createElement('meta');
 META_TAG.setAttribute('name', 'monetization');
 META_TAG.setAttribute('content', WALLET_ADDRESS);
 
-var db = firebase.firestore();
-
 var app = new Vue({
   el: '#app',
   data: {
     micrio: null,
-    stashedRevenueFirebaseUpdateAmount: 0,
+    stashedRevenueUpdateAmount: 0,
     monetizationActive: false,
   },
   methods: {
@@ -21,66 +19,32 @@ var app = new Vue({
         container: document.getElementById('micrio'),
       });
     },
-    sendTransactionToFirebase(event) {
-      // firebase gives errors on properties with value undefined
-      if (!event.detail.receipt) {
-        delete event.detail.receipt;
-      }
+    updateRevenue() {
+      if (!this.stashedRevenueUpdateAmount) return;
 
-      db.collection('transactions')
-        .add({
-          micrioId: MICRIO_ID,
-          event: event.detail,
-          timestamp: Date.now(),
-        })
-        .then(function (docRef) {
-          console.log('Document written with ID: ', docRef.id);
-        })
-        .catch(function (error) {
-          console.error('Error adding document: ', error);
-        });
-    },
-    updateRevenueInFirebase() {
-      if (!this.stashedRevenueFirebaseUpdateAmount) {
-        return;
-      }
+      const revenue = JSON.parse(localStorage.getItem('revenue')) || {};
+      const project = revenue[MICRIO_ID] || { total: 0 };
+      project.total += +this.stashedRevenueUpdateAmount;
+      revenue[MICRIO_ID] = project;
 
-      const increment = firebase.firestore.FieldValue.increment(
-        this.stashedRevenueFirebaseUpdateAmount
-      );
-      const micrioDocRef = db.collection('revenue').doc(MICRIO_ID);
+      localStorage.setItem('revenue', JSON.stringify(revenue));
 
-      micrioDocRef.set(
-        {
-          lastUpdated: Date.now(),
-        },
-        { merge: true }
-      );
-
-      try {
-        micrioDocRef.update({ total: increment });
-      } catch (e) {
-        console.log('error', e);
-      }
-
-      this.stashedRevenueFirebaseUpdateAmount = 0;
+      this.stashedRevenueUpdateAmount = 0;
     },
   },
   mounted() {
     this.addMicrio();
 
-    setInterval(this.updateRevenueInFirebase, 2000);
+    setInterval(this.updateRevenue, 2000);
 
     document.monetization.addEventListener('monetizationprogress', (e) => {
-      this.stashedRevenueFirebaseUpdateAmount += parseInt(e.detail.amount);
+      this.stashedRevenueUpdateAmount += parseInt(e.detail.amount);
 
       const detail = e.detail;
 
       // The chrome extension can not access the monetization property of the document,
       // so we send it as a separate one.
-      document.dispatchEvent(
-        new CustomEvent('monetizationprogress', { detail })
-      );
+      document.dispatchEvent(new CustomEvent('monetizationprogress', { detail }));
     });
 
     document.monetization.addEventListener('monetizationstart', () => {
