@@ -11,10 +11,30 @@
     <link rel="stylesheet" href="index.css" />
 
     <meta name="monetization" content="$ilp.uphold.com/XYmDAJbMwE7Y" />
-    <meta name="monetization:asset:max_amount" content="250" />
-    <meta name="monetization:asset:amount" content="125" />
     <meta name="monetization:asset:code" content="EUR" />
     <meta name="monetization:asset:scale" content="4" />
+
+    <!-- set values from /admin -->
+    <script>
+      // create maxAmount metatag
+      var maxAmount = localStorage.getItem('maxPricePerVisitor') || 0.025;
+      var maxAmountWithScale = maxAmount * Math.pow(10,4)
+
+      var maxAmountTag = document.createElement('meta');
+      maxAmountTag.name = 'monetization:asset:max_amount';
+      maxAmountTag.content = maxAmountWithScale;
+
+      // create amount metatag
+      var timeWindow = localStorage.getItem('timeWindow') || 120;
+      var amount = maxAmountWithScale / Math.floor(timeWindow / 60);
+
+      var amountTag = document.createElement('meta');
+      amountTag.name = 'monetization:asset:amount';
+      amountTag.content = amount;
+
+      document.head.appendChild(maxAmountTag);
+      document.head.appendChild(amountTag);
+    </script>
   </head>
   <body>
     <div id="app">
