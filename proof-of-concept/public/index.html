@@ -26,7 +26,7 @@
 
       // create amount metatag
       var timeWindow = localStorage.getItem('timeWindow') || 120;
-      var amount = maxAmountWithScale / Math.floor(timeWindow / 60);
+      var amount = maxAmountWithScale / (timeWindow / 60);
 
       var amountTag = document.createElement('meta');
       amountTag.name = 'monetization:asset:amount';
